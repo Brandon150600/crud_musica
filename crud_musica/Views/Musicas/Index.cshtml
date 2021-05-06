@@ -1,0 +1,68 @@
+﻿@model IEnumerable<crud_musica.Models.Musica> 
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @if (TempData["mensaje"]!=null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["mensaje"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-sm-12"><br /><br /></div>
+        <div class="col-sm-6"><h3>Lista de Musica</h3></div>
+        <div class="col-sm-6"><a class="btn btn-dark d-block" asp-action="Create" asp-controller="Musicas">Agregar Canción</a></div>
+    </div>
+    
+    <div class="row">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr class="bg-dark text-light">
+                        <td>@Html.DisplayNameFor(m => m.Id)</td>
+                        <td>@Html.DisplayNameFor(m => m.Nombre)</td>
+                        <td>@Html.DisplayNameFor(m => m.Artista)</td>
+                        <td>@Html.DisplayNameFor(m => m.Album)</td>
+                        <td>@Html.DisplayNameFor(m => m.Year)</td>
+                        <td>@Html.DisplayNameFor(m => m.Genero)</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Nombre</td>
+                            <td>@item.Artista</td>
+                            <td>@item.Album</td>
+                            <td>@item.Year</td>
+                            <td>@item.Genero</td>
+                            <td>
+                                <a asp-controller="Musicas" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></a>
+                                <a asp-controller="Musicas" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-dark"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="col-sm-12">
+                <br />
+                <div class="alert alert-dark" role="alert">
+                    No existen registros
+                </div>
+            </div>
+         }
+    </div>
+</div>
